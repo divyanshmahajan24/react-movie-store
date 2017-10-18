@@ -8,7 +8,6 @@ class Home extends React.Component {
   constructor () {
     super();
     this.state = {movies: []};
-    // this.setState = this.setState.bind(this);
     this.getRecentMovies = this.getRecentMovies.bind(this);
   }
 
