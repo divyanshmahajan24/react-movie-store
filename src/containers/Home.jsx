@@ -1,8 +1,8 @@
 import React from 'react';
 import Table from '../components/Table.jsx';
 
-let page = 0;
 const base = 'https://api.themoviedb.org/3/discover/movie?';
+let page = 0;
 
 class Home extends React.Component {
   constructor () {
