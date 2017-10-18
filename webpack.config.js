@@ -1,14 +1,18 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'src/client/public/js');
-var APP_DIR = path.resolve(__dirname, 'src/client/app');
+var BUILD_DIR = path.resolve(__dirname, 'dist');
+var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
   entry: APP_DIR + '/index.jsx',
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   module : {
     loaders : [
