@@ -8,6 +8,7 @@ class List extends React.Component {
     };
   }
 
+  // updates the component whenever props are updated
   componentWillReceiveProps(nextProps) {
     this.setState({ data: nextProps.data });
   }
