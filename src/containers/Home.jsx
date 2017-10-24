@@ -1,34 +1,51 @@
 import React from 'react';
-import Table from '../components/Table.jsx';
+import List from '../components/List.jsx';
 
-const base = 'https://api.themoviedb.org/3/discover/movie?';
-
-let page = 0;
+const base = 'https://api.themoviedb.org/3/discover/';
 
 class Home extends React.Component {
   constructor () {
     super();
-    this.state = {movies: []};
+    this.state = {movies: [], tv: []};
     this.getRecentMovies = this.getRecentMovies.bind(this);
+    this.getRecentTV = this.getRecentTV.bind(this);
   }
 
   init () {
     this.getRecentMovies();
+    this.getRecentTV();
   }
 
   getRecentMovies () {
-    page = page + 1;
+    const page = 1
     const date = new Date();
     const lte = [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
     const gte = [(date.getFullYear() - 1), date.getMonth(), date.getDate()].join('-');
-    const url = [base, 'primary_release_date.gte=', gte, '&primary_release_date.lte=',
+    const url = [base, 'movie?', 'primary_release_date.gte=', gte, '&primary_release_date.lte=',
       lte, '&page=', page, '&api_key=1d0c061f78fca8588aab156232ce3d92'].join('');
     fetch(url)
     .then(function(res) {return res.json()})
     .then(function(res) {
       this.setState({movies: this.state.movies.concat(res.results)});
+      console.log(this.state);
     }.bind(this))
-    .catch(err => console.log(err));;
+    .catch(err => console.log(err));
+  }
+
+  getRecentTV() {
+    const page = 1;
+    const date = new Date();
+    const lte = [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
+    const gte = [(date.getFullYear() - 1), date.getMonth(), date.getDate()].join('-');
+    const url = [base, 'tv?', 'first_air_date.gte=', gte, '&first_air_date.lte=',
+      lte, '&page=', page, '&api_key=1d0c061f78fca8588aab156232ce3d92', '&sort_by=popularity.desc'].join('');
+    fetch(url)
+    .then(function(res) {return res.json()})
+    .then(function(res) {
+      this.setState({tv: this.state.tv.concat(res.results)});
+      console.log(this.state);
+    }.bind(this))
+    .catch(err => console.log(err));
   }
 
   componentDidMount () {
@@ -38,9 +55,15 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <h3>Latest Movies</h3>
-        <Table data={this.state.movies} />
-        <button onClick={this.getRecentMovies}>Get More Movies</button>
+        <div>
+          <h3>Latest Movies</h3>
+          <List ref="movies" data={this.state.movies} mapKey="title" />
+          <button onClick={this.getRecentMovies}>Get More Movies</button>
+        </div>
+        <div>
+          <h3>Latest Tv</h3>
+          <List ref="tv" data={this.state.tv} mapKey="name" />
+        </div>
       </div>
     )
   }

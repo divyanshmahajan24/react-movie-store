@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Table extends React.Component {
+class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,14 +14,12 @@ class Table extends React.Component {
   render() {
     return (
       <div>
-        <table>
-          <tbody>
-            {this.state.data.map((row, i) => {return <tr key={i}><td>{row.title}</td></tr>})}
-          </tbody>
-        </table>
+        <ul>
+          {this.state.data.map((row, i) => {return <li key={i}>{row[this.props.mapKey]}</li>})}
+        </ul>
       </div>
     );
   }
 }
 
-export default Table;
+export default List;

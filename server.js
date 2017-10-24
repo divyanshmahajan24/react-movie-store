@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var port = 3031;
+var port = 8000;
 
 
 app.use('/dist/', express.static(__dirname + '/dist/'));
