@@ -4,7 +4,7 @@ const Nav = () => (
   <header>
     <nav>
       <ul>
-        <li><Link to='/'>Movies</Link></li>
+        <li><Link to='/movies'>Movies</Link></li>
         <li><Link to='/roster'>TV Series</Link></li>
       </ul>
     </nav>
